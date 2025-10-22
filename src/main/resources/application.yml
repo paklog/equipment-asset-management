@@ -1,35 +1,14 @@
 spring:
   application:
     name: equipment-asset-management
-
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/equipment_asset_management}
-
+      uri: mongodb://localhost:27017/equipment_management
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: io.cloudevents.kafka.CloudEventSerializer
-    consumer:
-      group-id: equipment-asset-management
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: io.cloudevents.kafka.CloudEventDeserializer
-
+    bootstrap-servers: localhost:9092
 server:
   port: 8103
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-
-logging:
-  level:
-    root: INFO
-    com.paklog.equipment.asset.management: DEBUG
+equipment:
+  maintenance:
+    preventive-interval-days: 90
+    critical-sla-hours: 4
