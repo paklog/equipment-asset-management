@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: equipment-asset-management
+  namespace: paklog-core
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: equipment-asset-management
+  template:
+    metadata:
+      labels:
+        app: equipment-asset-management
+    spec:
+      containers:
+      - name: equipment-asset-management
+        image: paklog/equipment-asset-management:latest
+        ports:
+        - containerPort: 8103
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: equipment-asset-management
+  namespace: paklog-core
+spec:
+  selector:
+    app: equipment-asset-management
+  ports:
+  - port: 8103
+    targetPort: 8103
