@@ -1,13 +1,15 @@
 package com.paklog.equipment.domain.service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.paklog.equipment.domain.aggregate.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-@Service @Slf4j
-public class PredictiveMaintenanceService {
+@Service public class PredictiveMaintenanceService {
+    private static final Logger log = LoggerFactory.getLogger(PredictiveMaintenanceService.class);
+
     
     public FailurePrediction predictFailure(Asset asset) {
         double probability = calculateFailureProbability(asset);

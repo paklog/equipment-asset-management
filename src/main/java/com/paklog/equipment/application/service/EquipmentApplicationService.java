@@ -4,18 +4,23 @@ import com.paklog.equipment.domain.aggregate.*;
 import com.paklog.equipment.domain.repository.*;
 import com.paklog.equipment.domain.service.PredictiveMaintenanceService;
 import com.paklog.equipment.domain.valueobject.AssetStatus;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.*;
 
-@Service @RequiredArgsConstructor
-public class EquipmentApplicationService {
+@Service public class EquipmentApplicationService {
     private final AssetRepository assetRepository;
     private final WorkOrderRepository workOrderRepository;
     private final MaintenanceScheduleRepository scheduleRepository;
     private final PredictiveMaintenanceService predictiveService;
+    public EquipmentApplicationService(AssetRepository assetRepository, WorkOrderRepository workOrderRepository, MaintenanceScheduleRepository scheduleRepository, PredictiveMaintenanceService predictiveService) {
+        this.assetRepository = assetRepository;
+        this.workOrderRepository = workOrderRepository;
+        this.scheduleRepository = scheduleRepository;
+        this.predictiveService = predictiveService;
+    }
+
 
     @Transactional
     public Asset registerAsset(RegisterAssetCommand command) {

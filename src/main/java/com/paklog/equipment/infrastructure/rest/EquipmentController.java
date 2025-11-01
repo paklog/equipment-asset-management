@@ -3,16 +3,18 @@ import com.paklog.equipment.application.command.*;
 import com.paklog.equipment.application.service.EquipmentApplicationService;
 import com.paklog.equipment.domain.aggregate.*;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/equipment")
-@RequiredArgsConstructor
 public class EquipmentController {
     private final EquipmentApplicationService service;
+    public EquipmentController(EquipmentApplicationService service) {
+        this.service = service;
+    }
+
 
     @PostMapping("/assets")
     @Operation(summary = "Register asset")
@@ -29,13 +31,13 @@ public class EquipmentController {
     @GetMapping("/assets/active")
     @Operation(summary = "Get active assets")
     public ResponseEntity<List<Asset>> getActiveAssets() {
-        return ResponseEntity.ok(service.getActiveAssets());
+        return ResponseEntity.ok(service.activeAssets());
     }
 
     @GetMapping("/maintenance/pending")
     @Operation(summary = "Get pending maintenance")
     public ResponseEntity<List<MaintenanceSchedule>> getPendingMaintenance() {
-        return ResponseEntity.ok(service.getPendingMaintenance());
+        return ResponseEntity.ok(service.pendingMaintenance());
     }
 
     @GetMapping("/assets/{assetId}/predict-failure")
